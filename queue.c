@@ -15,8 +15,6 @@ Lst_Node_s *root_list = NULL;
 Lst_Node_s *iter= NULL;
 Lst_Node_s *temp_lst= NULL;
 
-
-
 /* Struct for task nodes */
 struct tsk_node_s {
 int task_num; //starting from 0
@@ -77,7 +75,9 @@ void Task_enqueue( int task_num, int task_type, int value){
 		root_tsk->value=value;
 		root_tsk->task_num=task_num;
 		final=root_tsk;
-	}else{
+	}
+	else
+	{
 			
 		final->next = (Tsk_Node_s *)malloc(sizeof(Tsk_Node_s));
 		final->next->task_type=task_type;
@@ -85,60 +85,66 @@ void Task_enqueue( int task_num, int task_type, int value){
 		final->next->task_num=task_num;
 		final=final->next;
 		final->next=NULL;
-
 	}	
-
 }
 
-
 int Task_dequeue(int* task_num_p, int* task_type_p, int* value_p){
-	if(root_tsk == NULL){	
+	if(root_tsk == NULL)
+	{	
 		return -1;
 	}
+	
 	// task type is checked
-	if (*task_type_p == 0){
+	if (*task_type_p == 0)
+	{
 		printf("task %d - insert %d  :",*task_num_p,*value_p);	
 		Insert(*value_p);		
 	
-	}else if(*task_type_p == 1){
+	}
+	else if(*task_type_p == 1)
+	{
 		printf("task %d - delete %d  :",*task_num_p,*value_p);	
 		Delete(*value_p);
 		
-	}else{
+	}
+	else
+	{
 		printf("task %d - search %d  :",*task_num_p,*value_p);
 		Search(*value_p);
 	}
-//After making dequeue delete the task
-temp_tsk=root_tsk;
-root_tsk= root_tsk->next;
-free(temp_tsk);
-return  0;
+	//After making dequeue delete the task
+	temp_tsk=root_tsk;
+	root_tsk= root_tsk->next;
+	free(temp_tsk);
+	return  0;
 }
-
 
 int  Insert( int value){
 
-	if (root_list == NULL){ //list is empty
+	if (root_list == NULL) //list is empty
+	{
 		root_list=(Lst_Node_s *)malloc(sizeof(Lst_Node_s));
 		root_list->next=NULL;
 		root_list->data=value;
 		printf (" %d is inserted \n" ,value);
 
-	}else if(root_list->data > value ){  // If the value is smaller than the root	
-
+	}
+	else if(root_list->data > value )// If the value is smaller than the root	
+	{  
 		temp_lst=(Lst_Node_s *)malloc(sizeof(Lst_Node_s));
 		temp_lst->data =value;
 		temp_lst->next=root_list ;
 		root_list =temp_lst;
 		printf (" %d is inserted \n" ,value);
 
-	}else if (root_list->data == value ){// If the value is  the same  root	 cannot be inserted
-
+	}
+	else if (root_list->data == value )// If the value is  the same  root cannot be inserted
+	{
 		printf (" %d cannot be inserted \n" ,value);
-
-	}else {
-
-iter =root_list;
+	}
+	else
+	{
+		iter =root_list;
 		
 			while ( iter-> next !=NULL && iter->next->data <= value ){ //the value is somewhere in the middle of the list
 
@@ -157,67 +163,66 @@ iter =root_list;
             }
 	return 0;
 	}
-
 }
 
-
-int Delete(int value ){
-
-	
-	if(root_list == NULL){  //cannot delete if the list is empty
-		printf (" %d cannot be deleted  \n" , value);
-		
-	}else if(root_list->data ==value ){ // changed root_list
-	
+int Delete(int value )
+{
+	if(root_list == NULL) //cannot delete if the list is empty
+	{ 
+		printf (" %d cannot be deleted  \n" , value);		
+	}
+	else if(root_list->data == value)// changed root_list
+	{ 
 		temp_lst=root_list;
 		root_list=root_list->next;
 		free(temp_lst);
 		
 		printf (" %d deleted \n" , value);
-	}else{	
+	}
+	else
+	{	
 
-iter=root_list;
+		iter=root_list;
 
-		while(iter->next != NULL && iter->next -> data != value){
+		while(iter->next != NULL && iter->next -> data != value)
+		{
 			iter=iter->next;
 		}
-		if(iter->next == NULL){
+		if(iter->next == NULL)
+		{
 			printf (" %d  cannot be deleted \n" , value);
 
-		}else{
+		}
+		else
+		{
 
 		temp_lst= iter->next;
 		iter->next= iter->next->next;
 		free(temp_lst);
 		printf (" %d  deleted  \n" , value);
-    	}
+    		}
     }
     return 0;				
 }
 
 
-int Search(int value){
-		
+int Search(int value)
+{		
 	iter=root_list;
-	
-	
+
 	while(iter != NULL) {
-			
-		if(iter->data == value ){
-			
+
+		if(iter->data == value )
+		{
 			printf( " %d is found   \n" , value);
-		
 			return 0;
 		}
 
-		iter=iter->next;
-	}
-					
+	iter=iter->next;
+}
 	printf("%d is not found  \n" , value);	
-
 	return 0;
 }
-
 
 /////////////////////////
 
@@ -225,15 +230,17 @@ int main(int argc, char* argv[]){
    
 	int number = atoi(argv[1]);
 
-		Task_queue(number);
+	Task_queue(number);
 
 	printf( " Final list \n" );
 
 	iter =root_list;
-		while(iter!=NULL ){
-			printf("%d " , iter->data);
-			iter= iter->next;
-		}
+	
+	while(iter!=NULL )
+	{
+		printf("%d " , iter->data);
+		iter= iter->next;
+	}
 
 }
 
