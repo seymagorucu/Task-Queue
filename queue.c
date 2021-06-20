@@ -7,8 +7,8 @@
 
 /* Struct for list nodes */
 struct lst_node_s {
-int data;
-struct lst_node_s* next;
+	int data;
+	struct lst_node_s* next;
 };
 typedef struct lst_node_s Lst_Node_s;
 Lst_Node_s *root_list = NULL;
@@ -17,9 +17,9 @@ Lst_Node_s *temp_lst= NULL;
 
 /* Struct for task nodes */
 struct tsk_node_s {
-int task_num; //starting from 0
-int task_type; // insert:0, delete:1, search:2
-int value;
+	int task_num; //starting from 0
+	int task_type; // insert:0, delete:1, search:2
+	int value;
 struct tsk_node_s *next;
 };
 typedef struct tsk_node_s Tsk_Node_s;
